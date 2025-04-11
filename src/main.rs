@@ -18,6 +18,7 @@ fn main() {
     }
 
     let (value_part, unit_part) = input.split_at(len - 1);
+
     let value: f64 = match value_part.parse() {
         Ok(num) => num,
         Err(_) => {
@@ -29,8 +30,21 @@ fn main() {
 
     let unit = unit_part.to_uppercase();
 
-    println!("Parsed value: {}", value);
-    println!("Parsed unit: {}", unit);
+    match unit.as_str() {
+        "C" => {
+            let fahrenheit = (value * 9.0 / 5.0) + 32.0;
+            println!("{:.2}C is {:.2}F", value, fahrenheit);
+        }
+        "F" => {
+            let celsius = (value - 32.0) * 5.0 / 9.0;
+            println!("{:.2}F is {:.2}C", value, celsius);
+        }
+        _ => {
+            println!("Unknown unit. Please use 'C' for Celsius or 'F' for Fahrenheit.");
+        }
+    }
+    
+
     
 }
 
