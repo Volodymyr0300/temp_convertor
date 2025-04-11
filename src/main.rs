@@ -10,16 +10,17 @@ fn main() {
         .expect("Failed to read line");
 
     let input = input.trim();
-    let len = input.len();
-    
-    if len < 2 {
+
+    if input.is_empty() || input.len() < 2 {
         println!("Invalid input format. Please use something like 30C or 86F.");
         return;
     }
 
+    let len = input.len();
+
     let (value_part, unit_part) = input.split_at(len - 1);
 
-    let value: f64 = match value_part.parse() {
+    let value: f64 = match value_part.trim().parse() {
         Ok(num) => num,
         Err(_) => {
             println!("Invalid number format.");
@@ -28,7 +29,7 @@ fn main() {
         
     };
 
-    let unit = unit_part.to_uppercase();
+    let unit = unit_part.trim().to_uppercase();
 
     match unit.as_str() {
         "C" => {
