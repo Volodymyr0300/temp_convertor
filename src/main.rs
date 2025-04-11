@@ -1,6 +1,7 @@
 use std::io;
 
 fn main() {
+    loop {
     println!("Enter the temperature to convert (e.g., 30C or 86F):");
 
     let mut input = String::new();
@@ -11,9 +12,14 @@ fn main() {
 
     let input = input.trim();
 
+    if input.eq_ignore_ascii_case("q") || input.eq_ignore_ascii_case("quit") {
+        println!("Goodbye!");
+        break;
+    }
+
     if input.is_empty() || input.len() < 2 {
         println!("Invalid input format. Please use something like 30C or 86F.");
-        return;
+        continue;
     }
 
     let len = input.len();
@@ -23,7 +29,7 @@ fn main() {
     let value: f64 = match value_part.trim().parse() {
         Ok(num) => num,
         Err(_) => {
-            println!("Invalid number format.");
+            println!("Invalid number format. Please try again.");
             return;
         }
         
@@ -41,11 +47,10 @@ fn main() {
             println!("{:.2}F is {:.2}C", value, celsius);
         }
         _ => {
-            println!("Unknown unit. Please use 'C' for Celsius or 'F' for Fahrenheit.");
+            println!("Unknown unit '{}'. Use 'C' or 'F'.", unit);
         }
     }
-    
+    }
 
-    
 }
 
